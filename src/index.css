@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-anonymous: "Anonymous Pro", monospace;
+  --font-lato: lato, "sans serif";
+  --font-poppins: poppins, "sans serif";
+  --font-space_grotest: "Space Grotesk", monospace;
+  /* Used by /admin only, via the plain `body` rule below — the public site
+     always sets font-space_grotest explicitly on its own root wrapper,
+     which (being a closer ancestor) wins for every public page regardless
+     of this default. */
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  /* Backgrounds — refined off-whites */
+  --color-primary-500: #f8f7f6;
+  --color-primary-600: #efedeb;
+
+  /* Luxury Burgundy Scale */
+  --color-accent-400: #7c2b3f;
+  --color-accent-500: #6d213c; /* main brand burgundy */
+  --color-accent-600: #5c1e2b;
+
+  /* Gold Tones (UI friendly) */
+  --color-gold-400: #d9c8a4;
+  --color-gold-500: #cab08b;
+  --color-gold-600: #bfa98a;
+
+  /* Text Colors */
+  --color-main: #1a1a1a;
+  --color-secondary: #4a4a4a;
+  --color-trenary: #6a6a6a;
+
+  --color-luxury-gold: #D4AF37;
+
+  --color-error-500: #d64545;
+}
+
+@layer utilities {
+  .wrapper {
+    max-width: 1800px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .wrapper {
+      padding-inline: 36px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .wrapper {
+      padding-inline: 48px;
+    }
+  }
+
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-primary-500);
+  color: var(--color-main);
+}
+
+/* Tailwind doesn't set cursor:pointer on interactive elements by default
+   (a deliberate change from earlier versions) — without this, native
+   <button>s render with the default arrow cursor, which reads as "this
+   isn't clickable" even though it is. Applies sitewide (both apps) rather
+   than patching individual components one at a time. */
+button:not(:disabled),
+a,
+[role="button"],
+label[for],
+select,
+input[type="checkbox"],
+input[type="radio"] {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* iOS Safari auto-zooms the page on focus for any text input under 16px,
+   then keeps fighting to keep it in view as the on-screen keyboard opens —
+   that's what reads as "zooming in and teleporting while typing". This is
+   sitewide (any input, anywhere, present or future) rather than bumping
+   individual inputs' font sizes one at a time, which would be easy to miss
+   somewhere. Desktop sizing (text-sm etc.) is untouched above 767px, where
+   this browser behavior doesn't apply anyway. */
+@media (max-width: 767px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+.concierge-ticker {
+  animation: concierge-ticker 80s linear infinite;
+  will-change: transform;
+}
+
+@keyframes concierge-ticker {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .concierge-ticker { animation: none; }
+}
+
+
+
+
+.footer-marquee {
+  animation: footer-marquee 40s linear infinite;
+  will-change: transform;
+}
+
+@keyframes footer-marquee {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-marquee { animation: none; }
+}
